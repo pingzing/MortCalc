@@ -60,6 +60,9 @@ internal class Program
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
         Console.WriteLine(
+            $"MortCalc: Calculating monthly payments:\nMortage: €{loanPrincipal:N2}, Interest: {interestRate:N2}%, Number of Payments: {numPayments}"
+        );
+        Console.WriteLine(
             $"{"Monthly Payment", 15}{"Principal", 15}{"Interest", 15}{"ASP Savings", 15}"
         );
         Console.WriteLine("____________________________________________________________");

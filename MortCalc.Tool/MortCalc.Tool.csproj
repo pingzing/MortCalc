@@ -9,6 +9,7 @@
 
 	<!--Tool Stuff-->
 	<PropertyGroup>
+		<PackageVersion>1.0.1</PackageVersion>
 		<PackAsTool>true</PackAsTool>
 		<ToolCommandName>mortcalc</ToolCommandName>
 		<PackageOutputPath>./nupkg</PackageOutputPath>
