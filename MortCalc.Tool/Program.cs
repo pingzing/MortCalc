@@ -65,7 +65,7 @@ internal class Program
         Console.WriteLine(
             $"{"Monthly Payment", 15}{"Principal", 15}{"Interest", 15}{"ASP Savings", 15}"
         );
-        Console.WriteLine("____________________________________________________________");
+        Console.WriteLine("------------------------------------------------------------");
         Console.WriteLine(
             $"{amtPerMonth, 15}" + $"{principal, 15}" + $"{interest, 15}" + $"{aspSavings, 15}"
         );
