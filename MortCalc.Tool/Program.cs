@@ -25,6 +25,12 @@ internal class Program
             description: "Your total ammount borrowed in your loan, also known as its principal."
         );
 
+        var aspSubsidyOption = new Option<bool>(
+            aliases: new[] { "--subsidy", "-s" },
+            getDefaultValue: () => true,
+            description: "Whether or not the ASP subsidy should be applied to interest payments."
+        );
+
         var rootCommand = new RootCommand(
             "Calculate your monthly mortgage payment. With optional Finnish ASP subsidy calculations!"
         );
@@ -32,24 +38,31 @@ internal class Program
         rootCommand.AddOption(interestRateOption);
         rootCommand.AddOption(numPaymentsOption);
         rootCommand.AddOption(loanPrincipalOption);
+        rootCommand.AddOption(aspSubsidyOption);
 
         rootCommand.SetHandler(
             PrintMortgage,
             interestRateOption,
             numPaymentsOption,
-            loanPrincipalOption
+            loanPrincipalOption,
+            aspSubsidyOption
         );
 
         rootCommand.Invoke(args);
     }
 
-    private static void PrintMortgage(decimal interestRate, uint numPayments, decimal loanPrincipal)
+    private static void PrintMortgage(
+        decimal interestRate,
+        uint numPayments,
+        decimal loanPrincipal,
+        bool useSubsidy
+    )
     {
         var monthlyPayment = CalculateMonthlyPayment(
             interestRate / 100m,
             numPayments,
             loanPrincipal,
-            true
+            useSubsidy
         );
 
         string amtPerMonth = $"€{monthlyPayment.AmountPerMonth:0.00}";
@@ -59,9 +72,11 @@ internal class Program
 
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
+        Console.WriteLine();
         Console.WriteLine(
-            $"MortCalc: Calculating monthly payments:\nMortage: €{loanPrincipal:N2}, Interest: {interestRate:N2}%, Number of Payments: {numPayments}"
+            $"MortCalc: Calculating monthly payments...\nMortage: €{loanPrincipal:N2}, Interest: {interestRate:N2}%, Number of Payments: {numPayments}, ASP Subsidy: {useSubsidy}"
         );
+        Console.WriteLine("***");
         Console.WriteLine(
             $"{"Monthly Payment", 15}{"Principal", 15}{"Interest", 15}{"ASP Savings", 15}"
         );
@@ -69,5 +84,6 @@ internal class Program
         Console.WriteLine(
             $"{amtPerMonth, 15}" + $"{principal, 15}" + $"{interest, 15}" + $"{aspSavings, 15}"
         );
+        Console.WriteLine();
     }
 }

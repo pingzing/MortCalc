@@ -2,7 +2,7 @@
   "profiles": {
     "MortCalc.Tool": {
       "commandName": "Project",
-      "commandLineArgs": "-i 4.0 -p 240 -a 161000"
+      "commandLineArgs": "-i 5.5 -p 240 -a 161000 -s true"
     }
   }
 }
